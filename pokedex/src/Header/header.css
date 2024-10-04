@@ -1,0 +1,13 @@
+.header{
+    background-color: #282c34;
+    color: white;
+    font-weight: bold;
+    padding: 2px;
+    display: flex;
+
+}
+
+.logo{
+    width: 200px;
+
+}
