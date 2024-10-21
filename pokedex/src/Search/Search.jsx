@@ -1,8 +1,9 @@
 import React from "react";
 import "./search.css";
 import { useState } from 'react'
-import {colors, TextField} from "@mui/material";
-import { usePokemon} from "../Context/PokemonContext.jsx";
+import { usePokemon } from "../Context/PokemonContext";
+import { TextField} from "@mui/material";
+
 import Box from '@mui/material/Box';
 
 function Search() {
@@ -16,8 +17,11 @@ function Search() {
             variant="outlined"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            sx={{ width: '99%',
-            borderColor: 'white',}}
+            sx={{
+                width: '99%',
+                borderColor: 'white',
+                color: 'white',
+            }}
         />
     </Box>
   );

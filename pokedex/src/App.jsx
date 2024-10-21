@@ -1,22 +1,17 @@
-import { useState } from 'react'
-import Header from './Header/Header.jsx'
-import Search from './Search/Search.jsx'
-import './App.css'
-
+import React from 'react';
+import { PokemonProvider } from './Context/PokemonContext';
+import { Search } from './Search/Search';
+import { PokemonList } from './Context/PokemonList';
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-        <Header />
-        <Search />
-
-      <div>
-        </div>
-
-
-    </>
-  )
+    return (
+        <PokemonProvider>
+            <div className="App">
+                <h1>Pokémon App</h1>
+                <Search />
+                <PokemonList /> {/* Le composant PokemonList utilise le contexte */}
+            </div>
+        </PokemonProvider>
+    );
 }
 
-export default App
+export default App;

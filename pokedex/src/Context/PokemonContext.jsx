@@ -1,99 +1,50 @@
-import React, {useState, useContext, useEffect, createContext} from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-
-
+// Créer le contexte pour Pokémon
 const PokemonContext = createContext();
 
+// Fournisseur du contexte
 export const PokemonProvider = ({ children }) => {
-    const [search, setSearch] = useState('');
+    const [searchValue, setSearchValue] = useState('');
     const [pokemonData, setPokemonData] = useState([]);
-    const [pokemonType, setPokemonType] = useState([]);
     const [pokemonLoading, setPokemonLoading] = useState(true);
 
     useEffect(() => {
         const fetchPokemonData = async () => {
-        try {
-            const response = await fetch('https://pokedex-jgabriele.vercel.app/pokemons.json');
-            const data = await response.json();
-            const pokemon = await Promise.all(data.results.map(async (pokemon) => {
-            const pokemonRecord = await fetchPokemonData(pokemon);
-            return pokemonRecord;
-            }));
-            setPokemonData(pokemon);
-            setPokemonLoading(false);
-        } catch (e) {
-            console.error(e);
-        }
-        }
+            try {
+                const response = await fetch('https://pokedex-jgabriele.vercel.app/pokemons.json');
+                const data = await response.json();
+                setPokemonData(data.results);
+                setPokemonLoading(false);
+            } catch (e) {
+                console.error(e);
+            }
+        };
         fetchPokemonData();
-
-
     }, []);
 
-    const searchValue = async (pokemon) => {
-        try {
-            const response = await fetch(`https://pokedex-jgabriele.vercel.app/pokemons.json/${pokemon.name}`);
-            const data = await response.json();
-            const pokemon = await Promise.all(data.results.map(async (pokemon) => {
-            const pokemonRecord = await fetchPokemonData(pokemon);
-            return pokemonRecord;
-            }));
-            setPokemonData(pokemon);
-            setPokemonLoading(false);
-        } catch (e) {
-            console.error(e);
+    // Composant PokemonList ici
+    const PokemonList = () => {
+        if (pokemonLoading) {
+            return <p>Loading Pokémon data...</p>;
         }
-    }
-    
+
+        return (
+            <ul>
+                {pokemonData.map((pokemon, index) => (
+                    <li key={index}>{pokemon.name}</li> // Supposant que chaque Pokémon a une propriété 'name'
+                ))}
+            </ul>
+        );
+    };
 
     return (
-        <PokemonContext.Provider value={{ searchValue, setSearchValue, pokemonData, setPokemonData, pokemonType, setPokemonType, pokemonLoading, setPokemonLoading }}>
-        {children}
+        <PokemonContext.Provider value={{ searchValue, setSearchValue, pokemonData, pokemonLoading }}>
+            {children}
+            <PokemonList /> {/* Placez PokemonList ici pour qu'il soit inclus dans le contexte */}
         </PokemonContext.Provider>
     );
-}
+};
 
+// Hook personnalisé pour accéder au contexte
 export const usePokemon = () => useContext(PokemonContext);
-
-
-
-// const PokemonContext = ({ children }) => {
-//   const [searchValue, setSearchValue] = useState('');
-//   let [pokemonData, setPokemonData] = useState([]);
-//   const [pokemonType, setPokemonType] = useState([]);
-//   const [pokemonLoading, setPokemonLoading] = useState(true);
-//
-//   //Fonction pour récupérer les données de l'API
-//
-//   useEffect(() =>
-//     {
-//
-//     const fetchpokemonData = async (pokemon) => {
-//       try {
-//         const response = await fetch('https://pokedex-jgabriele.vercel.app/pokemons.json/${pokemon.name}');
-//         const data = await response.json();
-//         const pokemon = await Promise.all(data.results.map(async (pokemon) => {
-//           const pokemonRecord = await fetchPokemonData(pokemon);
-//           return pokemonRecord;
-//         }));
-//         setPokemonData(pokemon);
-//         setPokemonLoading(false);
-//       }
-//       catch (e) {
-//         console.error(e);
-//       }
-//
-//
-//     }
-//     fetchpokemonData();
-//   });
-//   return (
-//     <SearchContext.Provider value={[searchValue, setSearchValue]}>
-//       {children}
-//     </SearchContext.Provider>
-//   );
-//
-// }
-//
-//
-//
