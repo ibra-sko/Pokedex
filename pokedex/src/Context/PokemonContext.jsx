@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from "axios";
 
 // Créer le contexte pour Pokémon
 const PokemonContext = createContext();
@@ -12,39 +13,33 @@ export const PokemonProvider = ({ children }) => {
     useEffect(() => {
         const fetchPokemonData = async () => {
             try {
-                const response = await fetch('https://pokedex-jgabriele.vercel.app/pokemons.json');
-                const data = await response.json();
-                setPokemonData(data.results);
+                const response = await axios.get('https://pokedex-jgabriele.vercel.app/pokemons.json');
+                // Axios retourne directement les données dans response.data
+                const data = response.data;
+
+                console.log('Data fetched:', data.names); // Debug pour vérifier les données
+
+                if (data && data.results) {
+                    setPokemonData(data.results); // Supposant que 'results' contient la liste des Pokémon
+                } else {
+                    setPokemonData(data); // Fallback si les données sont directement un tableau
+                }
+
                 setPokemonLoading(false);
-            } catch (e) {
-                console.error(e);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setPokemonLoading(false);
             }
         };
+
         fetchPokemonData();
     }, []);
-
-    // Composant PokemonList ici
-    const PokemonList = () => {
-        if (pokemonLoading) {
-            return <p>Loading Pokémon data...</p>;
-        }
-
-        return (
-            <ul>
-                {pokemonData.map((pokemon, index) => (
-                    <li key={index}>{pokemon.name}</li> // Supposant que chaque Pokémon a une propriété 'name'
-                ))}
-            </ul>
-        );
-    };
 
     return (
         <PokemonContext.Provider value={{ searchValue, setSearchValue, pokemonData, pokemonLoading }}>
             {children}
-            <PokemonList /> {/* Placez PokemonList ici pour qu'il soit inclus dans le contexte */}
         </PokemonContext.Provider>
     );
 };
 
-// Hook personnalisé pour accéder au contexte
 export const usePokemon = () => useContext(PokemonContext);

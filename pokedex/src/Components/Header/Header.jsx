@@ -1,6 +1,6 @@
 import React from "react";
 import "./header.css";
-import Logo from "../assets/logoPokedex.svg"
+import Logo from "../../assets/logoPokedex.svg"
 
 function Header() {
   return (
