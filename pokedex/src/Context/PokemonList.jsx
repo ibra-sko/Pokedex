@@ -23,8 +23,11 @@ function PokemonList() {
     return (
         <Grid container spacing={2} sx={{ padding: '20px' }}>
             {pokemonData.map((pokemon, index) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                    <Card sx={{ maxWidth: 300 }}>
+                <Grid item xs={12} sm={6} md={7} lg={3} key={index}>
+                    <Card sx={{ maxWidth: 350,
+                                borderRadius: 6,
+
+                        }}>
                         <CardActionArea>
                             {/* Image du Pokémon */}
                             <CardMedia sx={{
