@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { usePokemon } from "../../Context/PokemonContext.jsx";
 import { TextField } from "@mui/material";
 import Box from '@mui/material/Box';
@@ -6,14 +6,27 @@ import Box from '@mui/material/Box';
 function Search() {
     const { searchValue, setSearchValue } = usePokemon();
 
+    useEffect(() => {
+        // Récupérer le texte de recherche stocké dans localStorage si disponible
+        const storedSearchValue = localStorage.getItem("searchValue");
+        if (storedSearchValue) {
+            setSearchValue(storedSearchValue);
+        }
+    }, [setSearchValue]);
+
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setSearchValue(value);
+        localStorage.setItem("searchValue", value); // Sauvegarder dans localStorage
+    };
+
     return (
         <Box
             sx={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '10vh', // Centre verticalement
-
+                height: '10vh',
             }}
         >
             <TextField
@@ -21,21 +34,15 @@ function Search() {
                 label="Enter Pokémon name"
                 variant="outlined"
                 value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={handleSearchChange}
                 sx={{
-                    width: '90%', // Largeur de la barre de recherche (ajustez si nécessaire)
-                    input: { color: 'white' }, // Couleur du texte
-                    label: { color: 'white' }, // Couleur du label "Search"
+                    width: '90%',
+                    input: { color: 'white' },
+                    label: { color: 'white' },
                     '.MuiOutlinedInput-root': {
-                        '& fieldset': {
-                            borderColor: 'white', // Couleur de la bordure
-                        },
-                        '&:hover fieldset': {
-                            borderColor: 'white', // Couleur de la bordure au survol
-                        },
-                        '&.Mui-focused fieldset': {
-                            borderColor: 'white', // Couleur de la bordure lorsqu'elle est focus
-                        },
+                        '& fieldset': { borderColor: 'white' },
+                        '&:hover fieldset': { borderColor: 'white' },
+                        '&.Mui-focused fieldset': { borderColor: 'white' },
                     },
                 }}
             />
