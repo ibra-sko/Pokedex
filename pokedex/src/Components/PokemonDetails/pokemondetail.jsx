@@ -8,11 +8,13 @@ function PokemonDetails() {
     const [openDialog, setOpenDialog] = useState(false);
 
     useEffect(() => {
-        // Remplacez cette URL par la vôtre pour récupérer les détails d'un Pokémon spécifique
-        fetch(`https://pokedex-jgabriele.vercel.app/pokemon/${pokemonId}.json`)
-            .then(response => response.json())
-            .then(data => setPokemon(data))
-            .catch(error => console.error('Error fetching Pokémon details:', error));
+        const fetchPokemon = async () => {
+            const response = await fetch(`https://pokedex-jgabriele.vercel.app/api/pokemons/${pokemonId}`);
+            const data = await response.json();
+            setPokemon(data);
+        };
+
+        fetchPokemon();
     }, [pokemonId]);
 
     if (!pokemon) return <p>Loading...</p>;

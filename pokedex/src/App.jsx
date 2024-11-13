@@ -1,17 +1,27 @@
 import React from 'react';
-import { LanguageProvider } from './Context/LanguageContext'; // Importer le contexte de langue
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { PokemonProvider } from './Context/PokemonContext';
+import { LanguageProvider } from './Context/LanguageContext';
 import Search from './Components/Search/Search.jsx';
-import PokemonList from './Components/PokemonList'; // Assurez-vous que PokemonList est bien importé depuis Components
-import Header from './Components/Header/Header.jsx';
+import PokemonList from './Context/PokemonList';
+import Header from "./Components/Header/Header.jsx";
+import PokemonDetails from './Components/PokemonDetails/pokemondetail.jsx';
 
 function App() {
     return (
         <LanguageProvider>
-            <div className="App">
-                <Header />
-                <Search />
-                <PokemonList />
-            </div>
+            <PokemonProvider>
+                <Router>
+                    <div className="App">
+                        <Header />
+                        <Routes>
+                            <Route path="/" element={<PokemonList />} />
+                            <Route path="/pokemon/:pokemonId" element={<PokemonDetails />} />
+                        </Routes>
+                        <Search />
+                    </div>
+                </Router>
+            </PokemonProvider>
         </LanguageProvider>
     );
 }

@@ -1,10 +1,8 @@
-// Components/Header/Header.jsx
 import React from 'react';
 import { Select, MenuItem, Box } from '@mui/material';
 import { useLanguage } from '../../Context/LanguageContext'; // Importer le hook
 
 import Logo from "../../assets/logoPokedex.svg";
-import './Header.css';
 
 function Header() {
     const { language, setLanguage } = useLanguage(); // Utiliser le contexte pour la langue
@@ -16,11 +14,11 @@ function Header() {
     return (
         <header className="header">
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 2, color: 'white' }}>
-                <img src={Logo} className="logo" alt="Pokedex Logo" />
+                <img src={Logo} className="logo" alt="Pokedex Logo" style={{ height: '80px' }} />
                 <Select
                     value={language}
                     onChange={handleLanguageChange}
-                    sx={{ minWidth: 120 }}
+                    sx={{ minWidth: 120, bgcolor: 'white', color: 'black' }}
                 >
                     <MenuItem value="en">En</MenuItem>
                     <MenuItem value="fr">Fr</MenuItem>

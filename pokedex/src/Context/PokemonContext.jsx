@@ -14,15 +14,14 @@ export const PokemonProvider = ({ children }) => {
         const fetchPokemonData = async () => {
             try {
                 const response = await axios.get('https://pokedex-jgabriele.vercel.app/pokemons.json');
-                // Axios retourne directement les données dans response.data
                 const data = response.data;
 
-                console.log('Data fetched:', data.names); // Debug pour vérifier les données
+                console.log('Data fetched:', data); // Vérifiez la structure ici
 
                 if (data && data.results) {
-                    setPokemonData(data.results); // Supposant que 'results' contient la liste des Pokémon
+                    setPokemonData(data.results); // Si les données sont dans 'results'
                 } else {
-                    setPokemonData(data); // Fallback si les données sont directement un tableau
+                    setPokemonData(data); // Sinon, assignez les données directement
                 }
 
                 setPokemonLoading(false);
@@ -34,6 +33,7 @@ export const PokemonProvider = ({ children }) => {
 
         fetchPokemonData();
     }, []);
+
 
     return (
         <PokemonContext.Provider value={{ searchValue, setSearchValue, pokemonData, pokemonLoading }}>
