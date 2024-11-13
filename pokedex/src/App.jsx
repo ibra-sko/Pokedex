@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
-import { PokemonProvider } from './Context/PokemonContext';
+import React from 'react';
+import { LanguageProvider } from './Context/LanguageContext'; // Importer le contexte de langue
 import Search from './Components/Search/Search.jsx';
-import PokemonList from './Context/PokemonList';
-import Header from "./Components/Header/Header.jsx";
+import PokemonList from './Components/PokemonList'; // Assurez-vous que PokemonList est bien importé depuis Components
+import Header from './Components/Header/Header.jsx';
 
 function App() {
-    const [language, setLanguage] = useState("en");
-
     return (
-        <PokemonProvider>
+        <LanguageProvider>
             <div className="App">
-                <Header language={language} setLanguage={setLanguage} />
+                <Header />
                 <Search />
-                <PokemonList language={language} /> {/* Le composant PokemonList utilise le contexte */}
+                <PokemonList />
             </div>
-        </PokemonProvider>
+        </LanguageProvider>
     );
 }
 

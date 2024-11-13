@@ -1,38 +1,22 @@
-import React, { useEffect, useState } from "react";
-import Logo from "../../assets/logoPokedex.svg";
+// Components/Header/Header.jsx
+import React from 'react';
 import { Select, MenuItem, Box } from '@mui/material';
-function Header({ language, setLanguage }) {
-    const [translations, setTranslations] = useState({});
+import { useLanguage } from '../../Context/LanguageContext'; // Importer le hook
 
-    useEffect(() => {
-        const storedLanguage = localStorage.getItem("language");
-        if (storedLanguage) {
-            setLanguage(storedLanguage);
-        }
+import Logo from "../../assets/logoPokedex.svg";
+import './Header.css';
 
-        fetch('https://pokedex-jgabriele.vercel.app/types.json')
-            .then(response => response.json())
-            .then(data => setTranslations(data))
-            .catch(error => console.error('Error fetching translations:', error));
-    }, [setLanguage]);
+function Header() {
+    const { language, setLanguage } = useLanguage(); // Utiliser le contexte pour la langue
 
     const handleLanguageChange = (event) => {
-        const newLanguage = event.target.value;
-        setLanguage(newLanguage);
-        localStorage.setItem("language", newLanguage);
+        setLanguage(event.target.value);
     };
 
     return (
         <header className="header">
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 2, color: 'white' }}>
-                <Box
-                    component="img"
-                    src={Logo}
-                    alt="Pokedex Logo"
-                    sx={{
-                        height: 80,
-                    }}
-                />
+                <img src={Logo} className="logo" alt="Pokedex Logo" />
                 <Select
                     value={language}
                     onChange={handleLanguageChange}
