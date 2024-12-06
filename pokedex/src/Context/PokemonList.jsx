@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { useLanguage } from './LanguageContext.jsx';
 import { usePokemon } from './PokemonContext';
 import { Card, CardContent, CardMedia, Typography, Grid, Box, Select, MenuItem, CardActionArea } from '@mui/material';

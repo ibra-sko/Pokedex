@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from "axios";
 
 // Créer le contexte pour Pokémon
-const PokemonContext = createContext();
+export const PokemonContext = createContext();
 
 // Fournisseur du contexte
 export const PokemonProvider = ({ children }) => {

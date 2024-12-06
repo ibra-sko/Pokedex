@@ -5,7 +5,7 @@ import { LanguageProvider } from './Context/LanguageContext';
 import Search from './Components/Search/Search.jsx';
 import PokemonList from './Context/PokemonList';
 import Header from "./Components/Header/Header.jsx";
-import PokemonDetails from './Components/PokemonDetails/pokemondetail.jsx';
+import PokemonDetails from './Components/PokemonDetails/Pokemondetail.jsx';
 
 function App() {
     return (
@@ -14,11 +14,11 @@ function App() {
                 <Router>
                     <div className="App">
                         <Header />
+                        <Search />
                         <Routes>
                             <Route path="/" element={<PokemonList />} />
                             <Route path="/pokemon/:pokemonId" element={<PokemonDetails />} />
                         </Routes>
-                        <Search />
                     </div>
                 </Router>
             </PokemonProvider>
