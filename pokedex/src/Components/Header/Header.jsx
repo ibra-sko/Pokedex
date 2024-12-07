@@ -1,20 +1,26 @@
 import React from 'react';
 import { Select, MenuItem, Box } from '@mui/material';
-import { useLanguage } from '../../Context/LanguageContext'; // Importer le hook
+import { useLanguage } from '../../Context/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 import Logo from "../../assets/logoPokedex.svg";
 
 function Header() {
-    const { language, setLanguage } = useLanguage(); // Utiliser le contexte pour la langue
+    const { language, setLanguage } = useLanguage();
+    const navigate = useNavigate();
 
     const handleLanguageChange = (event) => {
         setLanguage(event.target.value);
     };
 
+    const handleLogoClick = () => {
+        navigate('/');
+    };
+
     return (
         <header className="header">
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 2, color: 'white' }}>
-                <img src={Logo} className="logo" alt="Pokedex Logo" style={{ height: '80px' }} />
+                <img src={Logo} className="logo" alt="Pokedex Logo" style={{ height: '80px', cursor: 'pointer' }} onClick={handleLogoClick} />
                 <Select
                     value={language}
                     onChange={handleLanguageChange}
