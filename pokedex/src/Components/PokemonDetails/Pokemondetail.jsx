@@ -33,21 +33,21 @@ function PokemonDetails() {
     }
 
     return (
-        <Box sx={{ padding: 2, display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ padding: 2, justifyContent: 'center' }}>
             <Card sx={{ maxWidth: 350, borderRadius: 6 }}>
                 <CardActionArea>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2 }}>
+                    <Box sx={{ flexDirection: 'column', alignItems: 'center', padding: 2 }}>
                         <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: 'center' }}>
                             {pokemon.names?.en || 'Unknown Pokémon'}
                         </Typography>
                         <CardMedia
                             component="img"
-                            sx={{ height: 170, width: "50%" }}
+                            sx={{ height: 100, width: "50%" }}
                             image={pokemon.image}
                             alt={pokemon.names?.en || 'Unknown Pokémon'}
                         />
                     </Box>
-                    <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <CardContent sx={{ flexDirection: 'column', alignItems: 'flex-start' }}>
                         <Typography variant="body2" color="text.secondary">
                             No: {pokemon.id}
                         </Typography>
