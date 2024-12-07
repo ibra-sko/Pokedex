@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import { useLanguage } from './LanguageContext.jsx';
-import { usePokemon } from './PokemonContext';
+import { useLanguage } from '../../Context/LanguageContext.jsx';
+import { usePokemon } from '../../Context/PokemonContext.jsx';
 import { Card, CardContent, CardMedia, Typography, Grid, Box, Select, MenuItem, CardActionArea } from '@mui/material';
 
 function PokemonList() {
@@ -31,6 +31,7 @@ function PokemonList() {
     });
 
     return (
+
         <Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
                 <Select
